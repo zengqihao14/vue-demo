@@ -6,10 +6,13 @@
       :name="name"
       v-model="selected"
     )
-      option(disabled value="") 请选择
-      option(value="A") A
-      option(value="B") B
-      option(value="Z") Z
+      option(
+        v-for="option in selectOptions"
+        :hidden="option.hidden"
+        :selected="option.isDefault"
+        :disabled="option.disabled"
+        :value="option.value"
+      ) {{option.label}}
 </template>
 
 <script>
@@ -36,7 +39,13 @@
     name: 'SelectItem',
     data() {
       return {
-        selected: ''
+        selected: '',
+        selectOptions: [
+          {label: '请选择', value:'', isDefault: false, disabled: true, hidden: true},
+          {label: 'A', value:'A', isDefault: false, disabled: false, hidden: false},
+          {label: 'B', value:'B', isDefault: false, disabled: false, hidden: false},
+          {label: 'Z', value:'Z', isDefault: false, disabled: false, hidden: false}
+        ]
       }
     },
     props: {
