@@ -5,7 +5,7 @@
     styled-triangle(type="three")
     styled-triangle(type="four")
 </template>
-
+s
 <script>
   import styled, { css, keyframes } from 'vue-styled-components';
 

@@ -7,6 +7,7 @@
       styled-router-links
         styled-nuxt-link(to="lifecycle") LifeCycle
         styled-nuxt-link(to="classbinding") ClassBinding
+        styled-nuxt-link(to="form") Form
       loading
       styled-links-wrapper
       transition(

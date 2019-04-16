@@ -1,14 +1,14 @@
 <template lang="pug">
   styledContainer.transition-container
-    LifeCycleItem(
+    life-cycle-item(
       v-if="isCreated"
       @emit-msg="showMsg"
     )
-    styledMessageArea
-      StyledMessage(v-for="msg in messages" :key="msg") {{msg}}
-    styledButtonsWrapper
-      styledButton(:isCreated="isCreated" @click="create") create
-      styledButton(:isRemoved="!isCreated" @click="remove") remove
+    styled-message-area
+      styled-message(v-for="msg in messages" :key="msg") {{msg}}
+    styled-buttons-wrapper
+      styled-button(:isCreated="isCreated" @click="create") create
+      styled-button(:isRemoved="!isCreated" @click="remove") remove
     return-btn
 </template>
 
