@@ -1,10 +1,9 @@
 <template lang="pug">
   styled-container.transition-container
-    form(
-      v-if="!isBusy"
-      @submit.prevent="login"
-    )
-      styled-form-contents(v-if="!isLogin")
+    form(@submit.prevent="isLogin ? logout() : login()")
+      styled-form-contents(v-if="isBusy")
+        loading
+      styled-form-contents(v-else-if="!isLogin")
         input-item(
           :label="'username'"
           :placeholder="'username...'"
@@ -28,8 +27,6 @@
           :disabled="isBusy"
           @click="logout"
         ) Logout
-    styled-loading-content(v-else)
-      loading
     styled-message-area
       styled-message username: {{ username }}
       styled-message password: {{ password }}
@@ -90,26 +87,10 @@
     opacity: 1;
 
     &:hover {
+      cursor: pointer;
       opacity: .8;
       transition: opacity .5s ease;
     }
-  `;
-
-  const StyledLoadingContent = styled.div`
-    position: relative;
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto 35px;
-    min-height: 400px;
-    padding: 35px;
-    display: flex;
-    background-color: #FFF;
-    border-radius: 8px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    box-shadow: 3px 4px 9px -2px rgba(0, 0, 0, .1);
   `;
 
   const StyledMessageArea = styled.div`
@@ -147,7 +128,6 @@
       StyledContainer,
       StyledFormContents,
       StyledSubmitBtn,
-      StyledLoadingContent,
       StyledMessageArea,
       StyledMessage,
       InputItem,
