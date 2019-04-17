@@ -155,7 +155,6 @@
           this.isBusy = false;
         } catch (err) {
           this.isBusy = false;
-          return Promise.reject(err);
         }
       },
       async logout() {
@@ -176,7 +175,6 @@
           this.isBusy = false;
         } catch (err) {
           this.isBusy = false;
-          return Promise.reject(err);
         }
       }
     }
