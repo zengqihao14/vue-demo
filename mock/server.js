@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const logger = require('./middleware/logger');
 const CONFIG = require('./src/config');
@@ -14,9 +15,10 @@ const launch = () => {
   app.use((req, res, next) => {
     setTimeout(next, CONFIG.RESPONSE_LATENCY);
   });
-  // app.use(logger(CONFIG.LOGGER_FORMAT));
   app.use(logger(CONFIG.LOGGER_FORMAT));
-  const routes = require(CONFIG.ROUTE_PATH)(app, CONFIG.API_BASE_PATH);
+  app.use(CONFIG.STATIC_BASE_PATH, express.static(path.join(__dirname, CONFIG.STATIC_SOURCE_PATH)));
+
+  const routes = require(path.join(__dirname, CONFIG.ROUTE_PATH))(app, CONFIG.API_BASE_PATH);
   app.listen(CONFIG.PORT, (err) => {
     if (err) {
       console.log(err);
