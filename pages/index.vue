@@ -8,6 +8,7 @@
         styled-nuxt-link(to="lifecycle") LifeCycle
         styled-nuxt-link(to="classbinding") ClassBinding
         styled-nuxt-link(to="form") Form
+        styled-nuxt-link(to="api") API
       loading
       styled-links-wrapper
       transition(

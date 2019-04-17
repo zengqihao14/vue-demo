@@ -1,6 +1,6 @@
 <template lang="pug">
   styled-container.transition-container
-    styled-form
+    form
       styled-form-contents
         input-item(
           :label="'InputItem'"
@@ -46,12 +46,13 @@
     min-height: 100vh;
     min-width: 100vw;
     background-color: rgba(0, 0, 0, .027);
-  `;
-  const StyledForm = styled.form`
-    position: relative;
-    margin: 0 auto;
-    max-width: 600px;
-    width: 100%;
+
+    form {
+      position: relative;
+      margin: 0 auto;
+      max-width: 600px;
+      width: 100%;
+    }
   `;
 
   const StyledFormContents = styled.div`
@@ -102,7 +103,6 @@
     },
     components: {
       StyledContainer,
-      StyledForm,
       StyledFormContents,
       StyledMessageArea,
       StyledMessage,
