@@ -4,7 +4,7 @@ const CONFIG = require('./src/config');
 
 const app = express();
 
-const start = () => {
+const launch = () => {
   app.use(function (req, res, next) {
     for (key in CONFIG.HEADER) {
       res.header(key, CONFIG.HEADER[key]);
@@ -26,4 +26,4 @@ const start = () => {
   });
 };
 
-start();
+launch();
