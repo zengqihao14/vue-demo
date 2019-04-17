@@ -164,9 +164,7 @@
           authorization: false
         };
         const options = {
-          data: {
-            withCredentials: true
-          }
+          withCredentials: true
         };
         try {
           this.isBusy = true;
