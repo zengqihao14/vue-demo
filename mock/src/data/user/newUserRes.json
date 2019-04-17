@@ -1,0 +1,10 @@
+{
+  "resCode": "200",
+  "user": {
+    "id": 12,
+    "name": "john",
+    "gender": "male",
+    "age": 34,
+    "tel": 12345678901
+  }
+}
