@@ -1,9 +1,25 @@
 const pkg = require('./package')
+const ENV = () => {
+  switch (process.env.NODE_ENV) {
+    case 'local':
+      return {
+        API_BASE_URL: 'http://localhost:3100'
+      };
+    case 'development':
+      return {
+        API_BASE_URL: 'http://development'
+      };
+    default:
+      return {
+        API_BASE_URL: 'http://production'
+      };
+  }
+};
 
 
 module.exports = {
   mode: 'universal',
-
+  env: ENV(),
   /*
   ** Headers of the page
   */

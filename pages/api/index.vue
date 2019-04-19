@@ -137,7 +137,7 @@
     methods: {
       async login() {
         const endpoint = {
-          path: 'http://localhost:3100/api/login',
+          path: '/api/login',
           method: 'post',
           authorization: false
         };
@@ -159,7 +159,7 @@
       },
       async logout() {
         const endpoint = {
-          path: 'http://localhost:3100/api/logout',
+          path: '/api/logout',
           method: 'post',
           authorization: false
         };

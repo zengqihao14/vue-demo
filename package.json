@@ -5,11 +5,11 @@
   "author": "zengqihao",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
-    "build": "nuxt build",
-    "start": "cross-env NODE_ENV=production node server/index.js",
-    "generate": "nuxt generate",
-    "test": "jest",
+    "start": "NODE_ENV=local nodemon server/index.js --watch server",
+    "dev": "NODE_ENV=development nodemon server/index.js --watch server",
+    "build": "NODE_ENV=production nuxt build",
+    "prod": "NODE_ENV=production nuxt build && node server/index.js",
+    "generate": "NODE_ENV=production nuxt generate",
     "mock": "cd ./mock && yarn start"
   },
   "dependencies": {
