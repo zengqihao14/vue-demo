@@ -1,9 +1,9 @@
 <template lang="pug">
   styled-container.transition-container
-    form(@submit.prevent="isLogin ? logout() : login()")
+    form(@submit.prevent="hasLogin ? doLogout() : login()")
       styled-form-contents(v-if="isBusy")
         loading
-      styled-form-contents(v-else-if="!isLogin")
+      styled-form-contents(v-else-if="!hasLogin")
         input-item(
           :label="'username'"
           :placeholder="'username...'"
@@ -25,21 +25,21 @@
         styled-submit-btn(
           type="submit"
           :disabled="isBusy"
-          @click="logout"
         ) Logout
     styled-message-area
       styled-message username: {{ username }}
       styled-message password: {{ password }}
+      styled-message hasLogin: {{ hasLogin }}
+      styled-message isBusy: {{ isBusy }}
     return-btn
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
   import styled from 'vue-styled-components';
   import InputItem from '~/components/FormItems/InputItem';
   import ReturnBtn from '~/components/ReturnBtn';
   import Loading from '~/components/Loading';
-
-  import { callAPI } from '~/middleware/API/api';
 
   const StyledContainer = styled.section`
     position: relative;
@@ -119,9 +119,15 @@
     data() {
       return {
         username: '',
-        password: '',
-        isBusy: false,
-        isLogin: false
+        password: ''
+      }
+    },
+    computed: {
+      isBusy() {
+        return this.$store.state.auth.isBusy
+      },
+      hasLogin() {
+        return this.$store.state.auth.hasLogin
       }
     },
     components: {
@@ -135,45 +141,12 @@
       ReturnBtn
     },
     methods: {
-      async login() {
-        const endpoint = {
-          path: '/api/login',
-          method: 'post',
-          authorization: false
-        };
-        const options = {
-          data: {
-            username: this.username,
-            password: this.password
-          },
-          withCredentials: true
-        };
-        try {
-          this.isBusy = true;
-          await callAPI(endpoint, options);
-          this.isLogin = true;
-          this.isBusy = false;
-        } catch (err) {
-          this.isBusy = false;
-        }
-      },
-      async logout() {
-        const endpoint = {
-          path: '/api/logout',
-          method: 'post',
-          authorization: false
-        };
-        const options = {
-          withCredentials: true
-        };
-        try {
-          this.isBusy = true;
-          await callAPI(endpoint, options);
-          this.isLogin = false;
-          this.isBusy = false;
-        } catch (err) {
-          this.isBusy = false;
-        }
+      ...mapActions({
+        doLogin: 'auth/doLogin',
+        doLogout: 'auth/doLogout'
+      }),
+      login() {
+        this.doLogin({username: this.username, password: this.password});
       }
     }
   }
