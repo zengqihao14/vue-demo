@@ -7,7 +7,6 @@ export const state = () => ({
 
 export const actions = {
   async doLogin({commit}, {username, password}) {
-    console.log('username, password', username, password);
     const endpoint = {
       path: '/api/login',
       method: 'post',
@@ -57,13 +56,9 @@ export const mutations = {
     state.authToken = '';
   },
   setBusy(state) {
-    console.log('mutations setBusy: this', this);
-    console.log('mutations setBusy: state', state);
-    console.log('setBusy state.isBusy', state);
     state.isBusy = true;
   },
   unsetBusy(state) {
-    console.log('unsetBusy state.isBusy', state);
     state.isBusy = false;
   },
   setLogin(state) {

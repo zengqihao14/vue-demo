@@ -2,7 +2,7 @@
   styledContainer.transition-container
     life-cycle-item(
       v-if="isCreated"
-      @emit-msg="showMsg"
+      @emit-msg="showMessage"
     )
     styled-message-area
       styled-message(v-for="msg in messages" :key="msg") {{msg}}
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+  import { mapMutations } from 'vuex';
   import styled from 'vue-styled-components';
   import LifeCycleItem from '~/components/LifeCycleItem';
   import ReturnBtn from '~/components/ReturnBtn';
@@ -73,10 +74,12 @@
   export default {
     name: 'Lifecycle',
     transition: 'slide-left-top',
-    data() {
-      return {
-        isCreated: false,
-        messages: []
+    computed: {
+      isCreated() {
+        return this.$store.state.lifecycle.isCreated
+      },
+      messages() {
+        return this.$store.state.lifecycle.messages
       }
     },
     components: {
@@ -89,14 +92,14 @@
       ReturnBtn
     },
     methods: {
-      create() {
-        this.isCreated = true
-      },
-      remove() {
-        this.isCreated = false
-      },
-      showMsg(Msgs) {
-        this.messages = Msgs;
+      ...mapMutations({
+        create: 'lifecycle/create',
+        remove: 'lifecycle/remove',
+        showMsg: 'lifecycle/showMsg',
+      }),
+      showMessage(msg) {
+        console.log('msg', msg);
+        this.showMsg(msg);
       }
     }
   }

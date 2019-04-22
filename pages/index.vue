@@ -39,6 +39,8 @@
   import Loading from '~/components/Loading';
   import styled from 'vue-styled-components';
 
+  import { MAIN_PAGE } from '~/constants';
+
   const NLink = Vue.component('NLink');
   const btnProps = { color: String };
 
@@ -135,17 +137,17 @@
     transition: 'slide-right',
     data() {
       return {
-        title: 'myFirstNuxtApp',
-        subTitle: 'My terrific Nuxt.js project ???',
+        title: MAIN_PAGE.TITLE,
+        subTitle: MAIN_PAGE.SUB_TITLE,
         documentBtn: {
-          label: 'Documentation',
-          url: 'https://nuxtjs.org/',
-          target: '_blank'
+          label: MAIN_PAGE.BUTTONS.DOCUMENT_BUTTON.LABEL,
+          url: MAIN_PAGE.BUTTONS.DOCUMENT_BUTTON.URL,
+          target: MAIN_PAGE.BUTTONS.DOCUMENT_BUTTON.TARGET
         },
         githubBtn: {
-          label: 'GitHub',
-          url: 'https://github.com/nuxt/nuxt.js',
-          target: '_blank'
+          label: MAIN_PAGE.BUTTONS.GITHUB_BUTTON.LABEL,
+          url: MAIN_PAGE.BUTTONS.GITHUB_BUTTON.URL,
+          target: MAIN_PAGE.BUTTONS.GITHUB_BUTTON.TARGET
         },
         gitBtnShow: false
       }
@@ -163,11 +165,9 @@
     },
     methods: {
       onDocBtnClick() {
-        console.log('onDocBtnClick');
         this.gitBtnShow = true;
       },
       onGitBtnClick() {
-        console.log('onGitBtnClick');
         this.gitBtnShow = false;
       }
     }
