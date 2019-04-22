@@ -1,6 +1,22 @@
 import { callAPI } from '~/middleware/API/api';
+import Cookies from 'js-cookie';
+
+const getUserFromCookie = () => {
+  console.log('getUserFromCookie');
+  const authToken = Cookies.get('AuthToken');
+  const uid = Cookies.get('uid');
+  if (authToken && uid) {
+    return {
+      authToken: authToken,
+      uid: parseInt(uid)
+    }
+  } else {
+    return {}
+  }
+};
 
 export const state = () => ({
+  loginUser: {},
   hasLogin: false,
   isBusy: false,
 });
@@ -21,8 +37,8 @@ export const actions = {
     };
     try {
       commit('setBusy');
-      await callAPI(endpoint, options);
-      commit('setLogin');
+      const user = await callAPI(endpoint, options);
+      commit('setLogin', user);
       commit('unsetBusy');
     } catch (err) {
       commit('unsetBusy');
@@ -45,26 +61,28 @@ export const actions = {
     } catch (err) {
       commit('unsetBusy');
     }
+  },
+  getUserFromCookie({commit}) {
+    const user = getUserFromCookie();
+    if (user) {
+      commit('setLogin', user);
+    }
   }
 };
 
 export const mutations = {
-  setToken(token) {
-    state.authToken = token;
-  },
-  unsetToken() {
-    state.authToken = '';
-  },
   setBusy(state) {
     state.isBusy = true;
   },
   unsetBusy(state) {
     state.isBusy = false;
   },
-  setLogin(state) {
+  setLogin(state, userdata) {
+    state.loginUser = userdata;
     state.hasLogin = true;
   },
   unsetLogin(state) {
+    state.loginUser = {};
     state.hasLogin = false;
   },
 };

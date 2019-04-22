@@ -31,6 +31,7 @@
       styled-message password: {{ password }}
       styled-message hasLogin: {{ hasLogin }}
       styled-message isBusy: {{ isBusy }}
+      styled-message loginUser: {{ loginUser }}
     return-btn
 </template>
 
@@ -123,6 +124,9 @@
       }
     },
     computed: {
+      loginUser() {
+        return this.$store.state.auth.loginUser
+      },
       isBusy() {
         return this.$store.state.auth.isBusy
       },
@@ -143,11 +147,15 @@
     methods: {
       ...mapActions({
         doLogin: 'auth/doLogin',
-        doLogout: 'auth/doLogout'
+        doLogout: 'auth/doLogout',
+        getUser: 'auth/getUserFromCookie'
       }),
       login() {
         this.doLogin({username: this.username, password: this.password});
       }
+    },
+    mounted() {
+      this.getUser();
     }
   }
 </script>
