@@ -1,9 +1,6 @@
 <template lang="pug">
   styledContainer.transition-container
-    life-cycle-item(
-      v-if="isCreated"
-      @emit-msg="showMessage"
-    )
+    life-cycle-item(v-if="isCreated")
     styled-message-area
       styled-message(v-for="msg in messages" :key="msg") {{msg}}
     styled-buttons-wrapper
@@ -94,13 +91,8 @@
     methods: {
       ...mapMutations({
         create: 'lifecycle/create',
-        remove: 'lifecycle/remove',
-        showMsg: 'lifecycle/showMsg',
-      }),
-      showMessage(msg) {
-        console.log('msg', msg);
-        this.showMsg(msg);
-      }
+        remove: 'lifecycle/remove'
+      })
     }
   }
 </script>

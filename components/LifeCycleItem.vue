@@ -3,6 +3,7 @@
 </template>
 
 <script>
+  import { mapMutations } from 'vuex';
   import styled from 'vue-styled-components';
 
   const StyledTitle = styled.h2`
@@ -20,58 +21,57 @@
     name: 'LifeCycleItem',
     data() {
       return {
-        timerId: null,
-        messages: [],
-        isUpdated: false
+        timerId: null
       }
     },
     props: {},
+    computed: {
+      isUpdated() {
+        return this.$store.state.lifecycle.isUpdated
+      }
+    },
     components: {
       StyledTitle
     },
     methods: {
-      emitMessages() {
-        this.$emit('emit-msg', this.messages);
-      },
-      initMessages() {
-        this.messages = [];
-      },
-      updateMessages(msg) {
-        this.messages.push(msg);
-        this.emitMessages();
-      }
+      ...mapMutations({
+        init: 'lifecycle/init',
+        setUpdated: 'lifecycle/setUpdated',
+        pushMessage: 'lifecycle/pushMessage'
+      })
     },
     beforeCreate() {
       // this.initMessages();
-      // this.updateMessages('beforeCreate');
+      // this.pushMessage('beforeCreate');
     },
     created() {
-      this.updateMessages('created');
+      this.init();
+      this.pushMessage('created');
     },
     beforeMount() {
-      this.updateMessages('beforeMount');
+      this.pushMessage('beforeMount');
     },
     mounted() {
-      this.updateMessages('mounted');
+      this.pushMessage('mounted');
       this.timerId = setTimeout(() => {
-        this.isUpdated = true;
+        this.setUpdated();
         this.timerId = null;
       }, 1000);
     },
     beforeUpdate() {
-      this.updateMessages('beforeUpdate');
+      this.pushMessage('beforeUpdate');
     },
     updated() {
-      this.updateMessages('updated');
+      this.pushMessage('updated');
     },
     beforeDestroy() {
-      this.updateMessages('beforeDestroy');
+      this.pushMessage('beforeDestroy');
       if (this.timerId) {
         clearTimeout(this.timerId);
       }
     },
     destroyed() {
-      this.updateMessages('destroyed');
+      this.pushMessage('destroyed');
     }
   }
 </script>

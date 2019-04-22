@@ -1,5 +1,6 @@
 export const state = () => ({
   isCreated: false,
+  isUpdated: false,
   messages: [],
 });
 
@@ -10,7 +11,14 @@ export const mutations = {
   remove(state) {
     state.isCreated = false;
   },
-  showMsg(state, msg) {
-    state.messages = msg;
+  setUpdated(state) {
+    state.isUpdated = true;
+  },
+  init(state) {
+    state.isUpdated = false;
+    state.messages = [];
+  },
+  pushMessage(state, msg) {
+    state.messages.push(msg);
   }
 };
