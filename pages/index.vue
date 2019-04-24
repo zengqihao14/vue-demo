@@ -95,10 +95,14 @@
     text-align: center;
     text-decoration: none;
     width: 320px;
+    transition: opacity .48s ease, border-color .48s ease, background-size 1s cubic-bezier(0.55, 0.36, 0, 1.02);
+    background-image: linear-gradient(rgba(0, 50, 50, .2), rgba(0, 50, 50, .2));
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    background-position: left;
 
     &:hover {
-      transition: opacity .48s ease, border-color .48s ease;
-      opacity: .65;
+      background-size: 100% 100%;
     }
   `;
 
