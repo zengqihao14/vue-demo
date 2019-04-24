@@ -3,6 +3,7 @@
     h1.h1-class(
       :class="myClass"
     ) Class Binding Component ({{ randomNum }}) {{ reversedMessage }}
+    step-process(:steps="steps")
     return-btn
 </template>
 
@@ -31,6 +32,7 @@
 </style>
 
 <script>
+  import StepProcess from '~/components/StepProcess';
   import ReturnBtn from '~/components/ReturnBtn';
 
   export default {
@@ -40,10 +42,12 @@
       return {
         myClass: ['h1-red', 'h1-bold', 'h1-underline'],
         cnt: 0,
+        steps: [0, 1, 2],
         message: 'message'
       }
     },
     components: {
+      StepProcess,
       ReturnBtn
     },
     computed: {
