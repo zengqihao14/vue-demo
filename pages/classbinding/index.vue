@@ -4,6 +4,7 @@
       :class="myClass"
     ) Class Binding Component ({{ randomNum }}) {{ reversedMessage }}
     step-process(:steps="steps")
+    step-process-bar(:steps="steps")
     return-btn
 </template>
 
@@ -33,6 +34,7 @@
 
 <script>
   import StepProcess from '~/components/StepProcess';
+  import StepProcessBar from '~/components/StepProcessBar';
   import ReturnBtn from '~/components/ReturnBtn';
 
   export default {
@@ -48,6 +50,7 @@
     },
     components: {
       StepProcess,
+      StepProcessBar,
       ReturnBtn
     },
     computed: {

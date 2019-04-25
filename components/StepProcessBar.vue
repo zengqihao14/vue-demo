@@ -1,16 +1,21 @@
 <template lang="pug">
   styled-steps-container(:nums="nums")
-    styled-steps-wrapper(v-for="(item, index) in steps" :key="index")
-      styled-steps-item(
+    styled-steps-wrapper(
+      v-for="(item, index) in steps"
+      :key="index"
+      @click="() => handleChange(index)"
+    )
+      styled-steps-item-upper(
         :data-idx="index"
         :isCurrent="index === currentStepIdx"
         :isPassed="index < currentStepIdx"
-        @click="() => handleChange(index)"
-      ) {{index + 1}}
-      styled-steps-line(
-        v-if="index !== nums - 1"
+      )
+      styled-steps-item-lower(
+        :data-idx="index"
+        :isCurrent="index === currentStepIdx"
         :isPassed="index < currentStepIdx"
       )
+      styled-steps-text {{index + 1}}
 </template>
 
 <script>
@@ -23,25 +28,18 @@
     isCurrent: Boolean,
     isPassed: Boolean
   };
-  const stepLineProps = {
-    isPassed: Boolean
-  };
+
   const setItemStyle = (props) => {
     if (props) {
       if (props.isCurrent) {
         return css`
-          border: 2px solid #333;
           color: #FFF;
-          background-color: #333;
-          font-size: 16px;
-          width: 38px;
-          height: 38px;
+          background-size: 100% 100%;
         `
       } else if (props.isPassed) {
         return css`
-          border: 2px solid #777;
           color: #FFF;
-          background-color: #777;
+          background-size: 100% 100%;
         `
       }
     }
@@ -60,50 +58,64 @@
   const StyledStepsWrapper = styled.div`
     position: relative;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: calc(100% / 3);
+    &:hover {
+      cursor: pointer;
+    }
   `;
 
-  const StyledStepsItem = styled('button', stepItemProps)`
+  const StyledStepsItemUpper = styled('button', stepItemProps)`
     position: relative;
     margin: 0;
     padding: 0;
     display: block;
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 50%;
-    border: 2px solid #333;
-    color: #333;
-    background-color: #FFF;
-    transition: opacity .6s ease, font .48s ease, color .48s ease, border .48s ease, background-color .48s ease, width .48s ease, height .48s ease;
-    &:hover {
-      cursor: pointer;
-      color: #FFF;
-      background-color: #333;
-      border: 2px solid #333;
-    }
-    ${(props) => (setItemStyle(props))}
-  `;
-
-  const StyledStepsLine = styled('div', stepLineProps)`
-    position: relative;
-    display: block;
-    width: 100px;
-    margin: 0 5px;
-    height: 2px;
-    background-color: rgba(0, 0, 0, .15);
-    transition: border-color .48s ease, background-size .85s cubic-bezier(0.6, 0.01, 0.39, 0.97);
+    width: 100%;
+    height: 16px;
+    border: 2px solid #FFF;
+    border-bottom: none;
+    background-color: rgba(0, 0, 0, .05);
     background-image: linear-gradient(#333, #333);
     background-repeat: no-repeat;
     background-size: 0% 100%;
     background-position: left;
-    ${({isPassed}) => isPassed && css`
-      background-size: 100% 100%;
-    `}
+    transform: skew(25deg, 0);
+    transition: color .85s ease, background-size .85s cubic-bezier(0.6, 0.01, 0.39, 0.97);
+    ${(props) => (setItemStyle(props))}
+  `;
+  const StyledStepsItemLower = styled('button', stepItemProps)`
+    position: relative;
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: 100%;
+    height: 16px;
+    border: 2px solid #FFF;
+    border-top: none;
+    background-color: rgba(0, 0, 0, .05);
+    background-image: linear-gradient(#333, #333);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    background-position: left;
+    transform: skew(-25deg, 0);
+    transition: color .85s ease, background-size .85s cubic-bezier(0.6, 0.01, 0.39, 0.97);
+    &:hover {
+      cursor: pointer;
+    }
+    ${(props) => (setItemStyle(props))}
+  `;
+
+  const StyledStepsText = styled('p', stepItemProps)`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: ${({isCurrent, isPassed}) => isCurrent || isPassed ? '#FFF' : '#DDD'};
   `;
 
   export default {
@@ -126,8 +138,9 @@
     components: {
       StyledStepsContainer,
       StyledStepsWrapper,
-      StyledStepsItem,
-      StyledStepsLine
+      StyledStepsItemUpper,
+      StyledStepsItemLower,
+      StyledStepsText
     },
     methods: {
       handleChange(index) {
