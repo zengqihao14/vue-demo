@@ -70,8 +70,8 @@
     margin: 0;
     padding: 0;
     display: block;
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     font-size: 14px;
     font-weight: bold;
     text-align: center;
@@ -79,7 +79,7 @@
     border: 2px solid #333;
     color: #333;
     background-color: #FFF;
-    transition: opacity .6s ease, font .48s ease, color .48s ease, border .48s ease, background-color .48s ease, width .48s ease, height .48s ease;
+    transition: opacity .6s ease, font .48s ease, color .48s ease, border .48s ease, background-color .48s ease, width .58s ease, height .58s ease;
     &:hover {
       cursor: pointer;
       color: #FFF;
