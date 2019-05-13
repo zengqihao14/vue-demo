@@ -9,6 +9,7 @@
         styled-nuxt-link(to="classbinding") ClassBinding
         styled-nuxt-link(to="form") Form
         styled-nuxt-link(to="api") API
+        styled-nuxt-link(to="animations") Animations
       loading
       styled-links-wrapper
       transition(
