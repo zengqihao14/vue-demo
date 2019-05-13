@@ -1,21 +1,22 @@
 <template lang="pug">
   styled-container.transition-container
     styled-title#animated-title(ref="animatedTitle") Animations
-    p animatedNumber: {{number.toFixed(2)}}
+    styled-number animatedNumber: {{number.toFixed(2)}}
     styled-animated-box(ref="animatedBox" @click="onBoxClick")
-      div
     return-btn
 </template>
 
 <script>
-  import { TweenLite } from 'gsap';
   import styled from 'vue-styled-components';
   import ReturnBtn from '~/components/ReturnBtn';
+
+  import { BoxClickAnimation, TextAnimation } from '~/middleware/Animation';
 
   const StyledContainer = styled.section`
     position: relative;
     margin: 0;
     padding: 60px 0 0;
+    height: 8000px;
     min-height: 100vh;
     min-width: 100vw;
   `;
@@ -27,6 +28,16 @@
     width: 100%;
     font-size: 32px;
     font-weight: 600;
+    color: #333;
+    text-align: center;
+  `;
+
+  const StyledNumber= styled('p')`
+    position: relative;
+    margin: 0 auto;
+    padding: 15px 0;
+    width: 100%;
+    font-size: 18px;
     color: #333;
     text-align: center;
   `;
@@ -65,67 +76,36 @@
     components: {
       StyledContainer,
       StyledTitle,
+      StyledNumber,
       StyledAnimatedBox,
       ReturnBtn
     },
     methods: {
       onBoxClick(e) {
         if (!this.boxAnimating) {
-          TweenLite.to(e.target, 1, {
-            ease: 'Strong.easeInOut',
-            x: this.boxActived ? 0 : 200,
-            rotation: this.boxActived ? 0 : 360,
-            backgroundColor: this.boxActived ? 'red' : 'blue',
-            onStart: () => {
+          this.boxAnimating = true;
+          BoxClickAnimation(
+            e.target,
+            this.boxAnimating,
+            this.boxActived,
+            () => {
               this.boxAnimating = true;
             },
-            onComplete: () => {
+            () => {
               this.boxAnimating = false;
               this.boxActived = !this.boxActived;
             }
-          });
-          TweenLite.to(e.target, .25, {
-            y: -30
-          });
-          TweenLite.to(e.target, .5, {
-            delay: .25,
-            y: 30
-          });
-          TweenLite.to(e.target, 1, {
-            delay: .5,
-            y: 0
-          });
-          TweenLite.to(e.target, .5, {
-            backgroundColor: 'green',
-            borderRadius: '50%',
-            opacity: 0.75
-          });
-          TweenLite.to(e.target, 1, {
-            delay: 0.5,
-            backgroundColor: this.boxActived ? 'blue' : 'red',
-            borderRadius: '8px',
-            opacity: 1,
-            y: 0
-          });
-
-          TweenLite.to(e.target.querySelector('div'), 0, {
-            display: 'block',
-            opacity: .4,
-            scale: 1
-          });
-          TweenLite.to(e.target.querySelector('div'), .4, {
-            delay: .1,
-            opacity: 0,
-            display: 'none',
-            scale: 14
-          });
+          );
         }
       }
     },
     mounted() {
       const { animatedBox } = this.$refs;
       console.log('animatedBox', animatedBox);
-      TweenLite.to(this.$data, .5, { number: 200 });
+      TextAnimation(this.$data, { number: 200 }, .5);
+      window.onscroll = (e) => {
+        console.log('onScroll', window.scrollY)
+      };
     }
   }
 </script>
