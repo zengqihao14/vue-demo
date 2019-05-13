@@ -37,3 +37,13 @@ export const BoxClickAnimation = (el, isBusy, isActived, onStart, onComplete) =>
     y: 0
   });
 };
+
+export const ListInAnimation = (elList) => {
+  TweenMax.staggerFrom(elList, 1.8, {
+    ease: 'Strong.easeOut',
+    x: 400,
+    opacity: 0,
+    backgroundColor: '#333',
+    skewX: -60
+  }, .2);
+};

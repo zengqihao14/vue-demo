@@ -3,6 +3,11 @@
     styled-title#animated-title(ref="animatedTitle") Animations
     styled-number animatedNumber: {{number.toFixed(2)}}
     styled-animated-box(ref="animatedBox" @click="onBoxClick")
+    ul(ref="animatedList")
+      li list element 1
+      li list element 2
+      li list element 3
+      li list element 4
     return-btn
 </template>
 
@@ -10,7 +15,7 @@
   import styled from 'vue-styled-components';
   import ReturnBtn from '~/components/ReturnBtn';
 
-  import { BoxClickAnimation, TextAnimation } from '~/middleware/Animation';
+  import { BoxClickAnimation, TextAnimation, ListInAnimation } from '~/middleware/Animation';
 
   const StyledContainer = styled.section`
     position: relative;
@@ -100,9 +105,10 @@
       }
     },
     mounted() {
-      const { animatedBox } = this.$refs;
-      console.log('animatedBox', animatedBox);
+      const { animatedList } = this.$refs;
+
       TextAnimation(this.$data, { number: 200 }, .5);
+      ListInAnimation(animatedList.querySelectorAll('li'));
       window.onscroll = (e) => {
         console.log('onScroll', window.scrollY)
       };
