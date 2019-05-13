@@ -2,7 +2,7 @@
   styled-container.transition-container
     styled-title#animated-title(ref="animatedTitle") Animations
     styled-number animatedNumber: {{number.toFixed(2)}}
-    styled-animated-box(ref="animatedBox" @click="onBoxClick")
+    .animated-box(ref="animatedBox" @mouseover="onBoxHover")
     styled-animated-list(ref="animatedList")
       li list element 1
       li list element 2
@@ -19,7 +19,7 @@
   import ReturnBtn from '~/components/ReturnBtn';
 
   import {
-    BoxClickAnimation,
+    BoxAnimation,
     TextAnimation,
     ListInAnimation,
     LoadingAnimation
@@ -180,10 +180,10 @@
       ReturnBtn
     },
     methods: {
-      onBoxClick(e) {
+      onBoxHover(e) {
         if (!this.boxAnimating) {
           this.boxAnimating = true;
-          BoxClickAnimation(
+          BoxAnimation(
             e.target,
             this.boxAnimating,
             this.boxActived,
@@ -210,3 +210,14 @@
     }
   }
 </script>
+
+<style lang="sass">
+  .animated-box
+    position: relative
+    margin: 10px auto
+    width: 60px
+    height: 60px
+    background-color: blue
+    border-radius: 8px
+
+</style>

@@ -4,7 +4,7 @@ export const TextAnimation = (target, data, duraction) => {
   TweenMax.to(target, duraction, {...data})
 };
 
-export const BoxClickAnimation = (el, isBusy, isActived, onStart, onComplete) => {
+export const BoxAnimation = (el, isBusy, isActived, onStart, onComplete) => {
   TweenMax.to(el, 1, {
     ease: 'Strong.easeInOut',
     x: isActived ? 0 : 200,
@@ -52,14 +52,14 @@ export const LoadingAnimation = (el, el2) => {
   TweenMax.to(el, 1.8, {
     ease: 'Linear.easeNone',
     repeat: -1,
-    rotation: 360,
+    rotation: 270,
     opacity: 0,
     scale: 1.1,
   });
   TweenMax.to(el2, 1.8, {
     ease: 'Linear.easeNone',
     repeat: -1,
-    rotation: -360,
+    rotation: -270,
     opacity: 0,
     scale: 1.3,
   });
