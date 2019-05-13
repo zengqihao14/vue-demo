@@ -47,3 +47,20 @@ export const ListInAnimation = (elList) => {
     skewX: -60
   }, .2);
 };
+
+export const LoadingAnimation = (el, el2) => {
+  TweenMax.to(el, 1.8, {
+    ease: 'Linear.easeNone',
+    repeat: -1,
+    rotation: 360,
+    opacity: 0,
+    scale: 1.1,
+  });
+  TweenMax.to(el2, 1.8, {
+    ease: 'Linear.easeNone',
+    repeat: -1,
+    rotation: -360,
+    opacity: 0,
+    scale: 1.3,
+  });
+};

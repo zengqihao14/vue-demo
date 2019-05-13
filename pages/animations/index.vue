@@ -3,11 +3,14 @@
     styled-title#animated-title(ref="animatedTitle") Animations
     styled-number animatedNumber: {{number.toFixed(2)}}
     styled-animated-box(ref="animatedBox" @click="onBoxClick")
-    ul(ref="animatedList")
+    styled-animated-list(ref="animatedList")
       li list element 1
       li list element 2
       li list element 3
       li list element 4
+    styled-animated-loading-wrapper
+      styled-animated-loading(ref="animatedLoading")
+      styled-animated-loading2(ref="animatedLoading2")
     return-btn
 </template>
 
@@ -15,7 +18,12 @@
   import styled from 'vue-styled-components';
   import ReturnBtn from '~/components/ReturnBtn';
 
-  import { BoxClickAnimation, TextAnimation, ListInAnimation } from '~/middleware/Animation';
+  import {
+    BoxClickAnimation,
+    TextAnimation,
+    ListInAnimation,
+    LoadingAnimation
+  } from '~/middleware/Animation';
 
   const StyledContainer = styled.section`
     position: relative;
@@ -68,6 +76,88 @@
      }
   `;
 
+  const StyledAnimatedList = styled.ul`
+    position: relative;
+    diplay: block;
+    width: 100%;
+    max-width: 640px;
+    margin: 15px auto;
+    & li {
+      width: 100%;
+      font-size: 16px;
+      background-color: #DDD;
+      color: #333;
+      margin: 2px 0;
+      padding: 8px 15px;
+      &:hover {
+        color: #FFF;
+        background-color: #333;
+      }
+    }
+  `;
+
+  const StyledAnimatedLoadingWrapper = styled.div`
+    position: relative;
+    display: block;
+    margin: 32px auto;
+    padding: 0;
+    width: 140px;
+    height: 140px;
+  `;
+
+  const StyledAnimatedLoading = styled.div`
+    position: absolute;
+    display: block;
+    margin: 0;
+    padding: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 130, 260, 1);
+    &::before {
+      position: absolute;
+      content: "";
+      display: block;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(0, 130, 260, 1);
+    }
+  `;
+
+  const StyledAnimatedLoading2 = styled.div`
+    position: absolute;
+    display: block;
+    margin: 0;
+    padding: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-75deg);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 130, 260, 1);
+    &::before {
+      position: absolute;
+      content: "";
+      display: block;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #FFF;
+      border: 1px solid rgba(0, 130, 260, 1);
+    }
+  `;
+
   export default {
     name: 'Animations',
     transition: 'slide-top',
@@ -83,6 +173,10 @@
       StyledTitle,
       StyledNumber,
       StyledAnimatedBox,
+      StyledAnimatedList,
+      StyledAnimatedLoadingWrapper,
+      StyledAnimatedLoading,
+      StyledAnimatedLoading2,
       ReturnBtn
     },
     methods: {
@@ -105,10 +199,11 @@
       }
     },
     mounted() {
-      const { animatedList } = this.$refs;
+      const { animatedList, animatedLoading, animatedLoading2 } = this.$refs;
 
       TextAnimation(this.$data, { number: 200 }, .5);
-      ListInAnimation(animatedList.querySelectorAll('li'));
+      ListInAnimation(animatedList.$el.querySelectorAll('li'));
+      LoadingAnimation(animatedLoading.$el, animatedLoading2.$el);
       window.onscroll = (e) => {
         console.log('onScroll', window.scrollY)
       };
