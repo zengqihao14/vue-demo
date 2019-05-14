@@ -11,6 +11,12 @@
     styled-animated-loading-wrapper
       styled-animated-loading(ref="animatedLoading")
       styled-animated-loading2(ref="animatedLoading2")
+    div.fixed-list-wrapper
+      ui.fixed-list(ref="animatedFixList")
+        li.fixed-list--red list element 1
+        li.fixed-list--yellow list element 2
+        li.fixed-list--blue list element 3
+        li.fixed-list--black list element 4
     return-btn
 </template>
 
@@ -199,12 +205,14 @@
       }
     },
     mounted() {
-      const { animatedList, animatedLoading, animatedLoading2 } = this.$refs;
+      const { animatedList, animatedLoading, animatedLoading2, animatedFixList } = this.$refs;
 
       TextAnimation(this.$data, { number: 200 }, .5);
       ListInAnimation(animatedList.$el.querySelectorAll('li'));
       LoadingAnimation(animatedLoading.$el, animatedLoading2.$el);
       window.onscroll = (e) => {
+        console.log('animatedFixList')
+        animatedFixList.style.transform = `translateY(-${Math.min(880 * window.scrollY / document.body.scrollHeight, 660)}px)`;
         console.log('onScroll', window.scrollY)
       };
     }
@@ -219,5 +227,38 @@
     height: 60px
     background-color: blue
     border-radius: 8px
-
+  .fixed-list
+    position: absolute
+    display: block
+    top: 0
+    left: 0
+    margin: 0
+    padding: 0
+    width: 100%
+    &-wrapper
+      position: sticky
+      display: block
+      margin: 0
+      padding: 0
+      top: 60px
+      right: 60px
+      width: 320px
+      height: 220px
+      overflow: hidden
+    &--red
+      background-color: red
+    &--yellow
+      background-color: yellow
+    &--blue
+      background-color: blue
+    &--black
+      background-color: #333
+    & li
+      position: relative
+      display: block
+      width: 100%
+      height: 220px
+      margin: 0
+      padding: 15px
+      color: #FFF
 </style>
