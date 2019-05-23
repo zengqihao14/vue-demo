@@ -10,6 +10,7 @@
         styled-nuxt-link(to="form") Form
         styled-nuxt-link(to="api") API
         styled-nuxt-link(to="animations") Animations
+        styled-nuxt-link(to="gradients") Gradients
       loading
       styled-links-wrapper
       transition(
