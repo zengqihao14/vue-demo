@@ -13,7 +13,7 @@
     "mock": "cd ./mock && yarn start"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cross-env": "^5.2.0",
     "gsap": "^2.1.2",
     "js-cookie": "^2.2.0",
